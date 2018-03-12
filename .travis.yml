@@ -1,0 +1,32 @@
+language: go
+
+go:
+  - 1.10
+
+services:
+  - postgresql
+
+before_install:
+  - sudo apt-get install nginx
+
+before_script:
+  - psql -c 'create database go_blog;' -U postgres
+
+script:
+  #- ./travis.sh
+
+after_script:
+  - go build .
+
+env:
+  - "MODULE_ROOT=$HOME/go/src/github.com/alina-maslo/go-blog"
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email:
+    recipients:
+      - alina-maslo@inbox.ru
+    on_failure: change
+    on_success: never
