@@ -22,5 +22,5 @@ func main() {
 	//server := fcgi.S
 
 	e := echo.New()
-	e.Start()
+	e.Start(":8000")
 }
